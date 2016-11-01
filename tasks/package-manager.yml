@@ -1,0 +1,26 @@
+---
+- name: Install wheel (RedHat. required by EPEL 7)
+  yum:
+    name: python-wheel
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: Install pip (RedHat)
+  yum:
+    name: python-pip
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: Install pip (Debian)
+  apt:
+    name: python-pip
+    state: present
+    update_cache: yes
+    cache_valid_time: "{{ aws_sdk_apt_cache_valid_time }}"
+  when: ansible_os_family == 'Debian'
+
+- name: Install pip (MacOS)
+  homebrew:
+    name: python    # The python package includes pip
+    state: present
+  when: ansible_os_family == 'Darwin'

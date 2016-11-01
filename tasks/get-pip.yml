@@ -1,0 +1,16 @@
+---
+- block:
+    - name: Download get-pip.py script
+      get_url:
+        url: "{{ aws_sdk_pip_script_url }}"
+        dest: "{{ aws_sdk_tmp_script_path }}"
+        mode: 0400
+
+    - name: Install pip thru get-pip.py
+      shell: "python {{ aws_sdk_tmp_script_path }}"
+
+  always:
+    - name: Delete get-pip.py script
+      file:
+        path: "{{ aws_sdk_tmp_script_path }}"
+        state: absent

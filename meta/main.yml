@@ -1,0 +1,28 @@
+galaxy_info:
+  author: EnSheng Lim
+  description: This will install the `boto3` library. Will install `pip` if absent.
+  company: Gametize
+
+  license: MIT
+
+  min_ansible_version: 2.0
+
+  platforms:
+    - name: Ubuntu
+      versions:
+      - trusty
+      - xenial
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: MacOSX
+      versions:
+        - 10.12
+
+  galaxy_tags:
+    - boto3
+    - aws sdk
+    - pip
+
+dependencies: []

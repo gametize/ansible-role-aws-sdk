@@ -1,0 +1,22 @@
+---
+- name: Check if pip is installed
+  shell: command -v pip
+  ignore_errors: yes
+  changed_when: false
+  register: result
+
+- include: package-manager.yml
+  when:
+    - result|failed
+    - aws_sdk_pip_use_package_manager|bool == true
+
+- include: get-pip.yml
+  when:
+    - result|failed
+    - aws_sdk_pip_use_package_manager|bool == false
+
+- name: Install boto3
+  pip:
+    name: boto3
+    version: "{{ aws_sdk_boto3_version|default(omit) }}"
+    state: present

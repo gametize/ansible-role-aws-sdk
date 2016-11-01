@@ -1,0 +1,4 @@
+---
+aws_sdk_pip_script_url: https://bootstrap.pypa.io/get-pip.py
+aws_sdk_tmp_script_path: /tmp/get-pip.py
+aws_sdk_apt_cache_valid_time: 300

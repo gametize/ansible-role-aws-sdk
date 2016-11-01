@@ -1,0 +1,2 @@
+---
+aws_sdk_pip_use_package_manager: false
