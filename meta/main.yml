@@ -22,7 +22,7 @@ galaxy_info:
 
   galaxy_tags:
     - boto3
-    - aws sdk
+    - aws
     - pip
 
 dependencies: []
