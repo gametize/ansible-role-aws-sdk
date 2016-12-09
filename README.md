@@ -1,5 +1,7 @@
 # Ansible Role: AWS SDK
 
+[![Build Status](https://travis-ci.org/gametize/ansible-role-aws-sdk.svg?branch=master)](https://travis-ci.org/gametize/ansible-role-aws-sdk)
+
 This role will install the `boto3`, the [Python SDK recommended by Amazon AWS](https://aws.amazon.com/sdk-for-python/), via `pip`.
 
 `pip` will be installed if absent, via the `get-pip.py` script (default) or thru the OS package managers.
