@@ -43,7 +43,7 @@ test_centos7_system_pip:
     DOCKER_INIT: /usr/lib/systemd/systemd
     DOCKER_RUN_OPTS: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     DOCKER_NAME: gitlab-ci-$CI_BUILD_ID-$CI_BUILD_REF
-    PLAYBOOK_EXTRA_VARS: --extra-vars "aws_sdk_pip_use_package_manager=true"
+    PLAYBOOK_EXTRA_VARS: aws_sdk_pip_use_package_manager=true
 
 test_centos6_system_pip:
   <<: *test_definition
@@ -52,7 +52,7 @@ test_centos6_system_pip:
     DOCKER_INIT: /sbin/init
     DOCKER_RUN_OPTS: ""
     DOCKER_NAME: gitlab-ci-$CI_BUILD_ID-$CI_BUILD_REF
-    PLAYBOOK_EXTRA_VARS: --extra-vars "aws_sdk_pip_use_package_manager=true"
+    PLAYBOOK_EXTRA_VARS: aws_sdk_pip_use_package_manager=true
 
 test_ubuntu1604_system_pip:
   <<: *test_definition
@@ -61,7 +61,7 @@ test_ubuntu1604_system_pip:
     DOCKER_INIT: /lib/systemd/systemd
     DOCKER_RUN_OPTS: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     DOCKER_NAME: gitlab-ci-$CI_BUILD_ID-$CI_BUILD_REF
-    PLAYBOOK_EXTRA_VARS: --extra-vars "aws_sdk_pip_use_package_manager=true"
+    PLAYBOOK_EXTRA_VARS: aws_sdk_pip_use_package_manager=true
 
 test_ubuntu1404_system_pip:
    <<: *test_definition
@@ -70,7 +70,7 @@ test_ubuntu1404_system_pip:
      DOCKER_INIT: /sbin/init
      DOCKER_RUN_OPTS: ""
      DOCKER_NAME: gitlab-ci-$CI_BUILD_ID-$CI_BUILD_REF
-     PLAYBOOK_EXTRA_VARS: --extra-vars "aws_sdk_pip_use_package_manager=true"
+     PLAYBOOK_EXTRA_VARS: aws_sdk_pip_use_package_manager=true
 
 ### Test template
 
@@ -82,12 +82,12 @@ test_ubuntu1404_system_pip:
   script:
     - docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro --name $DOCKER_NAME $DOCKER_RUN_OPTS $DOCKER_IMAGE $DOCKER_INIT
     # Ansible sytax check
-    - docker exec $DOCKER_NAME ansible-playbook $PLAYBOOK_EXTRA_VARS /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check
+    - docker exec $DOCKER_NAME ansible-playbook --syntax-check --extra-vars "$PLAYBOOK_EXTRA_VARS" /etc/ansible/roles/role_under_test/tests/test.yml
     # Test role
-    - docker exec $DOCKER_NAME ansible-playbook $PLAYBOOK_EXTRA_VARS /etc/ansible/roles/role_under_test/tests/test.yml
+    - docker exec $DOCKER_NAME ansible-playbook --extra-vars "$PLAYBOOK_EXTRA_VARS" /etc/ansible/roles/role_under_test/tests/test.yml
     # Test role idempotence
     - idempotence=$(mktemp)
-    - docker exec $DOCKER_NAME ansible-playbook $PLAYBOOK_EXTRA_VARS /etc/ansible/roles/role_under_test/tests/test.yml | tee -a ${idempotence}
+    - docker exec $DOCKER_NAME ansible-playbook --extra-vars "$PLAYBOOK_EXTRA_VARS" /etc/ansible/roles/role_under_test/tests/test.yml | tee -a ${idempotence}
     - >
       tail ${idempotence}
       | grep -q 'changed=0.*failed=0'

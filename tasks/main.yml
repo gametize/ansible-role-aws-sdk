@@ -20,3 +20,11 @@
     name: boto3
     version: "{{ aws_sdk_boto3_version|default(omit) }}"
     state: present
+  when: aws_sdk_install_boto3|bool == true
+
+- name: Install boto (version 2)
+  pip:
+    name: boto
+    version: "{{ aws_sdk_boto_version|default(omit) }}"
+    state: present
+  when: aws_sdk_install_boto|bool == true

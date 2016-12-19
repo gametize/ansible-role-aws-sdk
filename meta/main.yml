@@ -1,6 +1,6 @@
 galaxy_info:
   author: EnSheng Lim
-  description: This will install the `boto3` library. Will install `pip` if absent.
+  description: This role will install the `boto` library (`boto3` by default) via `pip`. Will install `pip` if absent.
   company: Gametize
 
   license: MIT

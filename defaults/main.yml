@@ -1,2 +1,4 @@
 ---
 aws_sdk_pip_use_package_manager: false
+aws_sdk_install_boto: false
+aws_sdk_install_boto3: true
